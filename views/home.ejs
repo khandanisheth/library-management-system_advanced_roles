@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Library Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        margin: 0;
+        padding: 30px 10px;
+        min-height: 100vh;
+    }
+
+    .wrap {
+        width: 95%;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 18px 22px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+        text-align: center;
+        color: #fff;
+        margin: 10px 0 26px;
+        font-size: 2.2rem;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+        margin-top: 6px;
+        color: #333;
+        border-left: 5px solid #4CAF50;
+        padding-left: 10px;
+        display: inline-block;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+    }
+
+    th, td {
+        border: 1px solid #eee;
+        padding: 12px 10px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    th {
+        background: #4CAF50;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+
+    tr:hover {
+        background: #f1f1f1;
+    }
+
+    .actions form { display: inline-block; margin: 0 4px; }
+
+    button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.15s;
+    }
+
+    button:active { transform: translateY(1px); }
+    .issue-btn { background:#ff9800; color:#fff; }
+    .return-btn { background:#2196F3; color:#fff; }
+    .delete-btn { background:#f44336; color:#fff; }
+    .add-btn { background:#4CAF50; color:#fff; padding:10px 18px; margin-top:10px; border-radius:10px; }
+
+    form.add-form { margin-top:18px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      outline: none;
+      min-width: 160px;
+    }
+    input:focus { box-shadow: 0 0 8px rgba(76,175,80,0.18); border-color: #4CAF50; }
+
+    .top-bar { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+    .note { color:#666; font-size:13px; }
+
+    @media (max-width: 800px) {
+      th, td { font-size:13px; padding:10px 6px; }
+      form.add-form { flex-direction:column; align-items:stretch; }
+      input[type="text"], input[type="number"] { width:100%; }
+      .top-bar { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Library Management System</h1>
+
+  <div class="wrap">
+    <div class="card">
+      <%- include("partials/header") %>
+
+
+      <div class="top-bar">
+        <h2>All Books</h2>
+        <div class="note">Note: Login to issue / return books. Teachers/Admin can delete books.</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (data.length === 0) { %>
+            <tr><td colspan="6">No books available. Add some below.</td></tr>
+          <% } %>
+          <% data.forEach(element => { %>
+            <tr>
+              <td><%= element.bookName %></td>
+              <td><%= element.bookAuthor %></td>
+              <td><%= element.bookPages || '-' %></td>
+              <td>₹<%= element.bookPrice || 0 %></td>
+              <td><%= element.bookState %></td>
+              <td class="actions">
+                <% if (currentUser) { %>
+                  <% if (element.bookState === 'Available') { %>
+                    <form action="/issue" method="post">
+                      <input type="hidden" name="bookId" value="<%= element._id %>">
+                      <button type="submit" class="issue-btn">Issue</button>
+                    </form>
+                  <% } else { %>
+                    <form action="/return" method="post">
+                      <input type="hidden" name="bookId" value="<%= element._id %>">
+                      <button type="submit" class="return-btn">Return</button>
+                    </form>
+                  <% } %>
+
+                  <% if (currentUser.role === 'teacher' || currentUser.role === 'admin') { %>
+                    <form action="/delete" method="post" onsubmit="return confirm('Delete this book?');">
+                      <input type="hidden" name="bookId" value="<%= element._id %>">
+                      <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                  <% } %>
+                <% } else { %>
+                  <small>Login to manage</small>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <hr style="margin:18px 0; border:none; border-top:1px solid #eee;">
+
+      <h2>Add New Book</h2>
+      <form class="add-form" action="/books" method="post">
+        <input type="text" name="bookName" placeholder="Book Name" required>
+        <input type="text" name="bookAuthor" placeholder="Book Author" required>
+        <input type="number" name="bookPages" placeholder="Pages">
+        <input type="number" name="bookPrice" placeholder="Price">
+        <% if (currentUser) { %>
+          <button type="submit" class="add-btn">➕ Add Book</button>
+        <% } else { %>
+          <div style="color:#777;padding:8px 12px;border-radius:8px;background:#f5f5f5;">Login to add books</div>
+        <% } %>
+      </form>
+
+    </div>
+  </div>
+</body>
+</html>

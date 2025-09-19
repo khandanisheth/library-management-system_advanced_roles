@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Register - Library</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: linear-gradient(135deg,#cfd9df,#e2ebf0); margin:0; padding:40px; min-height:100vh; display:flex; align-items:center; justify-content:center; }
+    .box { background:#fff;padding:26px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.12); width:100%; max-width:480px; }
+    h2 { margin:0 0 14px; color:#333; }
+    input, select { width:100%; padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0; outline:none; }
+    button { width:100%; padding:12px;border-radius:8px;border:none;background:#2196F3;color:#fff;font-weight:700;margin-top:8px; cursor:pointer; }
+    a { color:#4CAF50; text-decoration:none; display:inline-block; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Create an account</h2>
+    <form action="/register" method="post">
+      <input type="text" name="username" placeholder="Choose a username" required>
+      <input type="password" name="password" placeholder="Choose a password" required>
+      <select name="role">
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+      </select>
+      <button type="submit">Register</button>
+    </form>
+    <div style="margin-top:10px;">Already registered? <a href="/login">Login</a></div>
+  </div>
+</body>
+</html>

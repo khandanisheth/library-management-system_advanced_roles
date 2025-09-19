@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Login - Library</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: linear-gradient(135deg,#ffd3a5,#fd6585); margin:0; padding:40px; min-height:100vh; display:flex; align-items:center; justify-content:center; }
+    .box { background:#fff;padding:26px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.15); width:100%; max-width:420px; }
+    h2 { margin:0 0 14px; color:#333; }
+    input { width:100%; padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0; outline:none; }
+    button { width:100%; padding:12px;border-radius:8px;border:none;background:#4CAF50;color:#fff;font-weight:700;margin-top:8px; cursor:pointer; }
+    a { color:#2196F3; text-decoration:none; display:inline-block; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Login to Library</h2>
+    <form action="/login" method="post">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <div style="margin-top:10px;">Don't have an account? <a href="/register">Register</a></div>
+  </div>
+</body>
+</html>

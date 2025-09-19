@@ -1,0 +1,20 @@
+<header style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#fff;border-radius:8px;margin-bottom:18px;">
+  <div>
+    <h2 style="margin:0;color:#333">📚 Library Management</h2>
+    <% if (currentUser) { %>
+      <small style="color:#666">Welcome, <strong><%= currentUser.username %></strong> (<%= currentUser.role %>)</small>
+    <% } %>
+  </div>
+  <div>
+    <% if (!currentUser) { %>
+      <a href="/login" style="margin-right:10px;text-decoration:none;padding:8px 12px;border-radius:6px;background:#4CAF50;color:#fff;">Login</a>
+      <a href="/register" style="text-decoration:none;padding:8px 12px;border-radius:6px;background:#2196F3;color:#fff;">Register</a>
+    <% } else { %>
+      <a href="/transactions" style="margin-right:10px;text-decoration:none;padding:8px 12px;border-radius:6px;background:#FF9800;color:#fff;">My Transactions</a>
+      <% if (currentUser.role === 'admin') { %>
+        <a href="/admin/transactions" style="margin-right:10px;text-decoration:none;padding:8px 12px;border-radius:6px;background:#6A1B9A;color:#fff;">All Transactions</a>
+      <% } %>
+      <a href="/logout" style="text-decoration:none;padding:8px 12px;border-radius:6px;background:#f44336;color:#fff;">Logout</a>
+    <% } %>
+  </div>
+</header>

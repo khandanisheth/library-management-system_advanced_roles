@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Transactions</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background:#f3f6fb; margin:0; padding:24px; }
+    .wrap { width:95%; max-width:900px; margin:0 auto; }
+    .card { background:#fff; padding:16px 20px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.08); }
+    h2 { margin:0 0 12px; color:#333; }
+    table { width:100%; border-collapse:collapse; margin-top:8px; }
+    th, td { border:1px solid #eee; padding:10px; text-align:left; }
+    th { background:#4CAF50; color:#fff; }
+    tr:nth-child(even) { background:#fafafa; }
+    a { text-decoration:none; color:#2196F3; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+     <%- include("partials/header") %>
+
+      <h2><%= typeof adminView !== 'undefined' && adminView ? 'All Transactions' : 'My Transactions' %></h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Type</th>
+            <th>Date</th>
+            <% if (adminView) { %><th>User</th><% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (transactions.length === 0) { %>
+            <tr><td colspan="<%= adminView ? 4 : 3 %>">No transactions found.</td></tr>
+          <% } %>
+
+          <% transactions.forEach(tr => { %>
+            <tr>
+              <td><%= tr.bookId ? tr.bookId.bookName : '—' %></td>
+              <td><%= tr.type %></td>
+              <td><%= new Date(tr.date).toLocaleString() %></td>
+              <% if (adminView) { %>
+                <td><%= tr.userId ? tr.userId.username : '—' %></td>
+              <% } %>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <div style="margin-top:12px;"><a href="/">← Back to Books</a></div>
+    </div>
+  </div>
+</body>
+</html>
