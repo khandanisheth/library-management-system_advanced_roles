@@ -31,21 +31,7 @@ Authentication: Express-Session + Bcrypt
 Other: Body-parser
 
 📂 Project Structure
-library-management-system/
-├─ models/
-│  ├─ Book.js
-│  ├─ User.js
-│  └─ Transaction.js
-├─ views/
-│  ├─ partials/
-│  │  └─ header.ejs
-│  ├─ home.ejs
-│  ├─ login.ejs
-│  ├─ register.ejs
-│  └─ transactions.ejs
-├─ app.js
-├─ package.json
-└─ README.md
+![](images/path.png)
 
 ⚡ Getting Started
 1️⃣ Clone the Repository
@@ -77,12 +63,8 @@ Teacher → Can issue/return and delete books.
 Admin → Can do everything + view all transactions of all users.
 
 📸 Preview
+![](images/path.png)
 
-📌 Books Dashboard
-
-
-📌 Transactions Page
-(screenshot add karna hoga)
 
 🤝 Contributing
 
