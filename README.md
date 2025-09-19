@@ -63,7 +63,7 @@ Teacher → Can issue/return and delete books.
 Admin → Can do everything + view all transactions of all users.
 
 📸 Preview
-![](images/path.png)
+![](images/page.png)
 
 
 🤝 Contributing
@@ -75,6 +75,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 👤 Mohammad Danish
 📧 Email: khandanishindia04@gmail.com
 
-🔗 LinkedIn Profile
+🔗 LinkedIn Profile:https://www.linkedin.com/in/mohammad-danish-dev/
 
 ⭐ If you like this project, don't forget to star the repo!
